@@ -11,14 +11,19 @@ from selenium.webdriver.common.proxy import *
 no_of_reviews = 1000
 
 non_bmp_map = dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
-driver = webdriver.Firefox(executable_path='/usr/local/bin/geckodriver')
+# driver = webdriver.Firefox(executable_path='/usr/local/bin/geckodriver')
+driver = webdriver.Firefox(executable_path='d:/tools/geckodriver.exe')
+wait = WebDriverWait(driver, 10)
 
-wait = WebDriverWait( driver, 10 )
-
+# class hash
+class_name = {
+    'id-app-title': 'AHFaub'
+}
 
 # Append your app store urls here
-urls = ["https://play.google.com/store/apps/details?id=com.flipkart.android&hl=en",
-        "https://play.google.com/store/apps/details?id=com.amazon.mShop.android.shopping"]
+urls = ["https://play.google.com/store/apps/details?id=com.flipkart.android&hl=en&showAllReviews=true",
+        # "https://play.google.com/store/apps/details?id=com.amazon.mShop.android.shopping"
+        ]
 
 for url in urls:
 
@@ -27,19 +32,15 @@ for url in urls:
 
     soup_expatistan = BeautifulSoup(page, "html.parser")
 
-    expatistan_table = soup_expatistan.find("div", class_="id-app-title")
+    expatistan_table = soup_expatistan.find("h1", class_='AHFaub')
 
     print("App name: ", expatistan_table.string)
-
-    expatistan_table = soup_expatistan.find("div", itemprop="numDownloads")
-
-    print("Installs Range: ", expatistan_table.string)
 
     expatistan_table = soup_expatistan.find("meta", itemprop="ratingValue")
 
     print("Rating Value: ", expatistan_table['content'])
 
-    expatistan_table = soup_expatistan.find("meta", itemprop="ratingCount")
+    expatistan_table = soup_expatistan.find("meta", itemprop="reviewCount")
 
     print("Rating Count: ", expatistan_table['content'])
 
@@ -55,13 +56,14 @@ for url in urls:
         print("Rating: ", rating_bar.find("span").text)
         print("Rating count: ", rating_bar.find("span", class_="bar-number").string)
 
-    next_button = driver.find_element_by_xpath('//*[@id="body-content"]/div/div/div[1]/div[2]/div[2]/div[1]/div[4]/button[2]')
+    next_button = driver.find_element_by_xpath(
+        '//*[@id="body-content"]/div/div/div[1]/div[2]/div[2]/div[1]/div[4]/button[2]')
 
-    for i in range(0,no_of_reviews):
+    for i in range(0, no_of_reviews):
         try:
             next_button.click()
         except Exception:
-         time.sleep(5)
+            time.sleep(5)
 
     reviews_div = driver.find_element_by_xpath('//div[@data-load-more-section-id="reviews"]').get_attribute("innerHTML")
     soup_expatistan = BeautifulSoup(reviews_div, "html.parser")
@@ -83,6 +85,4 @@ for url in urls:
         else:
             print("Developer Reply: ", "")
 
-
 driver.quit()
-
