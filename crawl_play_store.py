@@ -5,6 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.proxy import *
 from bottle import route, run
+import re
+import hashlib
 
 
 @route('/')
@@ -23,7 +25,7 @@ def index(name, token):
     options = webdriver.FirefoxOptions()
     options.add_argument('-headless')
     # driver = webdriver.Firefox(executable_path="d:/tools/geckodriver.exe", options=options)
-    driver = webdriver.Firefox(executable_path="./geckodriver", options=options)
+    driver = webdriver.Firefox(executable_path="/sites/geckodriver", options=options)
 
     wait = WebDriverWait(driver, 10)
     if not name:
@@ -52,21 +54,32 @@ def index(name, token):
     expatistan_div = expatistan_table.find_all("div", class_='zc7KVe')
 
     for ele in expatistan_div:
-        user_name = ele.find("span", class_="X43Kjb")
-        star_num = ele.find("div", class_="pf5lIe").find_next()['aria-label']
+        user_name = ele.find("span", class_="X43Kjb").text
+        stars = ele.find("div", class_="pf5lIe").find_next()['aria-label']
+        star_num = re.findall(r'\d', stars)[0]
         review_div = ele.find("div", class_="UD7Dzf")
         try:
             review_div.find_all("span")
         except AttributeError:
-            review = review_div
+            review = ""
         else:
             review = review_div.find_all("span")[0].text
-        date = ele.find("span", class_="p2TkOb")
+        date = ele.find("span", class_="p2TkOb").text
+        try:
+            img = ele.find("img")['src']
+        except:
+            img = ""
+        helpful_num = ele.find("div", class_="jUL89d").text
+        hash = hashlib.md5((user_name + img + star_num + review + date).encode("utf-8")).hexdigest()
         reviews = {
-            "user_name": user_name.text,
+            "user_name": user_name,
+            'img': img,
+            'stars': stars,
             "star_num": star_num,
             "review": review,
-            "date": date.text
+            'helpful_num': helpful_num,
+            "date": date,
+            "hash": hash
         }
         result['reviews'].append(reviews)
     driver.quit()
