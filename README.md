@@ -2,67 +2,63 @@
 # Welcome to the google-play-crawler!
 Python based Google Play Crawler 
 
-## Example of crawled data:
-
-App name:  Amazon Shopping <br>
-Installs Range:   50,000,000 - 100,000,000
-Rating Value:  4.268221378326416<br>
-Rating Count:  449554<br>
-Reviews Count:  449,554<br>
-Rating:   5 <br>
-Rating count:  281,323<br>
-Rating:   4 <br>
-Rating count:  86,924<br>
-Rating:   3 <br>
-Rating count:  34,203<br>
-Rating:   2 <br>
-Rating count:  14,772<br>
-Rating:   1 <br>
-Rating count:  32,332<br>
-Author Name:  michelle slaughter<br>
-Review Date:  2 June 2016<br>
-Reviewer Link:  /store/apps/details?id=com.amazon.mShop.android.shopping&reviewId=Z3A6QU9xcFRPSEdKRjFBeEJjVFNZMHdfLUptRnprTkhnOGpacWhaSzhUb1NOa29Ca3lYeEtxZi1PeXZZUXVtdVlieExuaG1wbmtSRF83emZLeE1iRXg3dVE<br>
-Reviewer Ratings:  3<br>
-Review Title:  Alright<br>
-Review Body:   Alright The app itself is great. This is my first user on Amazon after being a longtime user of Ebay. Just not too happy with delivery as promised. I ordered 2 instock items directly from Amazon on may 30th, says will ship today (june 2) and have it by the 6th..has yet to be shipped. Funny thing is the next day the 31st I ordered 2 items from a 3rd party on Amazon and they shipped yesterday. Sneaky part tho offering 30 days free of Prime, have to give credit card. I did, mine is expired so they cancelled free trial  Full Review <br> 
-Developer Reply:  <br>
-
-## Requirements
-
-1. Python 3.4.4
-2. beautifulsoup4
-3. Selenium
-4. geckodriver
-5. Firefox
-## Installation beautifulsoup4
-
-If you're using a recent version of Debian or Ubuntu Linux, you can install Beautiful Soup with the system package manager:
-
-Try anyone of these methods. I personally prefer pip. 
-
-    $ apt-get install python-bs4.
-    $ easy_install beautifulsoup4.
-    $ pip install beautifulsoup4.
-
-To Install Selenium 
-
-    pip install selenium
-    
-To install geckodriver in Mac
-
-    brew install geckodriver
-    
-
-## Usage:
-Directly run the script crawl_play_store.py to print app data. By default it will crawl Flipkart and Amazon upto 1000 reviews.
-
-     python crawl_play_store.py
-     
-To scrap data just add app url in this array in python file:
-urls = ["https://play.google.com/store/apps/details?id=com.flipkart.android&hl=en", 
-		"https://play.google.com/store/apps/details?id=com.amazon.mShop.android.shopping"]
-
-Or customize your code according to your need. 
-
-
-
+## Example:
+- python3 ./google-play-crawler
+- visit http://www.yourwebsite.com:8080/app/com.twitter.com/yourtoken
+- then you can see the json code
+```
+{
+"title": "Twitter",
+"reviews": [
+{
+"user_name": "Liz Tarducci",
+"img": "https://lh3.googleusercontent.com/-n-ZD6jpUQoY/AAAAAAAAAAI/AAAAAAAAu50/En5zDhkVT04/s48-c/photo.jpg",
+"stars": "Rated 1 stars out of five stars",
+"star_num": "1",
+"review": "I had un installed this app and used Twitter via Chrome for a while. I went back to the app hoping we had an option to the navigation bar (nope) but now notifications do not work!!! Edit: All of sudden notifications vibrate and there is no way to shut it off in the app as that option is gone!",
+"helpful_num": "64",
+"date": "September 25, 2018",
+"hash": "ef6b6a849b75ec4c3b9e4539a5c0eace"
+},
+{
+"user_name": "jagadish r",
+"img": "https://lh3.googleusercontent.com/-tzLgUhCFgAU/AAAAAAAAAAI/AAAAAAAAIZc/xRWxT1Xqi6o/s48-c/photo.jpg",
+"stars": "Rated 1 stars out of five stars",
+"star_num": "1",
+"review": "My account as been suspended but i dont know the reason.. I dint post any inappropriate post nor iam the original account holder from very long time.. this as made me really feel bad for suspending my account for no reason... I hate Twitter and guys pls don't use this app",
+"helpful_num": "41",
+"date": "September 25, 2018",
+"hash": "2146e1a56d212e3c9d98938dfb275d22"
+},
+{
+"user_name": "Eix 2.0",
+"img": "https://lh3.googleusercontent.com/-hv9c3P9vzEU/AAAAAAAAAAI/AAAAAAAAAZ4/dkbaxk5nURg/s48-c/photo.jpg",
+"stars": "Rated 1 stars out of five stars",
+"star_num": "1",
+"review": "Managed go unlock my account but now its eaten 55% of my battery in an hour because it crashes and automatically relaunches with the latest update litterally unuseable now im uninstalling then dumping an old version from my other phone to use on this one in typing this it crashed 6 times",
+"helpful_num": "14",
+"date": "September 25, 2018",
+"hash": "c59433c880c358155b97460d09110ee9"
+},
+{
+"user_name": "A Google user",
+"img": "https://lh3.googleusercontent.com/-p-8M63LFH1E/AAAAAAAAAAI/AAAAAAAAAAA/PhVj4XJO3QQ/s48-c/photo.jpg",
+"stars": "Rated 1 stars out of five stars",
+"star_num": "1",
+"review": "My account got suspended and I didn't know why. I didn't post any inappropriate post.. and I just started using twitter again and this happens. Please fix this.",
+"helpful_num": "14",
+"date": "September 25, 2018",
+"hash": "7666b563974c8e186e3c012b41f93539"
+},
+{
+"user_name": "Ashy Marie",
+"img": "https://lh3.googleusercontent.com/-c7C1B0lv5-s/AAAAAAAAAAI/AAAAAAAAEc4/FVMpjaIPBXI/s48-c/photo.jpg",
+"stars": "Rated 4 stars out of five stars",
+"star_num": "4",
+"review": "I don't know why the notifications are so broken. The vibration/alert goes off twice whenever I get one tweet, I don't get every tweet from those I have turned on, and according to the app I only have 4 people whom I should be getting notifications from. Please fix asap.",
+"helpful_num": "40",
+"date": "September 25, 2018",
+"hash": "a786eba22ff4b971eb4c5a68a46dde60"
+},
+...
+```
