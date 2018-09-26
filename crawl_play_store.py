@@ -81,7 +81,8 @@ def index(name, token):
             "date": date,
             "hash": hash
         }
-        result['reviews'].append(reviews)
+        if img != "":
+            result['reviews'].append(reviews)
     driver.quit()
     return dict(result)
 
